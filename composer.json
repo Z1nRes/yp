@@ -1,0 +1,22 @@
+{
+    "name": "z1nres/yp",
+    "description": "yp php 2023",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "z1nres",
+            "email": "tv.noob@bk.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 | ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\": "core/src/",
+            "": "app/"
+        }
+    } 
+}
