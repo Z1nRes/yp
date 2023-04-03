@@ -19,5 +19,14 @@ function getConfigs(string $path = DIR_CONFIG): array
 }
 
 require_once __DIR__ . '/../routes/web.php';
+$app = new src\Application(new src\Settings(getConfigs()));
+
+//Функция возвращает глобальный экземпляр приложения
+function app() {
+   global $app;
+   return $app;
+}
+
+return $app;
 
 return new src\Application(new src\Settings(getConfigs()));
