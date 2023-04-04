@@ -58,7 +58,7 @@ class Site
     {
         $rooms = Room::all();
         if ($request->method === 'POST' && Room::create($request->all())) {
-            
+            app()->route->redirect('/places');
         }
         return (new View())->render('site.room', ['rooms' => $rooms]); 
     }
@@ -67,7 +67,7 @@ class Site
     {
         $divisions = Division::all();
         if ($request->method === 'POST' && Division::create($request->all())) {
-            
+            app()->route->redirect('/divisions');
         }
         return (new View())->render('site.division', ['divisions' => $divisions]); 
     }
