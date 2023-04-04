@@ -16,7 +16,7 @@
         <ul class="nav me-auto">
             <li class="nav-item"><a href="<?= app()->route->getUrl('/hello') ?>" class="nav-link link-dark px-2 active">Главная</a></li>
             <li class="nav-item"><a href="<?= app()->route->getUrl('/places') ?>" class="nav-link link-dark px-2">Помещения</a></li>
-            <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Подразделения</a></li>
+            <li class="nav-item"><a href="<?= app()->route->getUrl('/divisions') ?>" class="nav-link link-dark px-2">Подразделения</a></li>
         </ul>
         <ul class="nav">
             <?php

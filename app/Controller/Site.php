@@ -14,8 +14,10 @@ class Site
 {
     public function index(Request $request): string
     {
-       $posts = Post::where('id', $request->id)->get();
-       return (new View())->render('site.post', ['posts' => $posts]);
+        // $user = User::where('id', '=' , $_SESSION['id'])->get();
+
+        $posts = Post::where('id', $request->id)->get();
+        return (new View())->render('site.post', ['posts' => $posts]);
     }
     
 
@@ -27,7 +29,7 @@ class Site
    public function signup(Request $request): string
     {
     if ($request->method === 'POST' && User::create($request->all())) {
-        app()->route->redirect('/go');
+        app()->route->redirect('/hello');
     }
     return new View('site.signup');
     }
@@ -58,9 +60,13 @@ class Site
         return (new View())->render('site.room', ['rooms' => $rooms]); 
     }
 
-    public function division(): string
+    public function division(Request $request): string
     {
+       // var_dump($request); die();
         $divisions = Division::all();
+        if ($request->method === 'POST' && Division::create($request->all())) {
+            
+        }
         return (new View())->render('site.division', ['divisions' => $divisions]); 
     }
 }

@@ -4,18 +4,18 @@ namespace src;
 
 class Session
 {
-   public static function set($role, $value): void
+   public static function set($id, $value): void
    {
-       $_SESSION[$role] = $value;
+       $_SESSION[$id] = $value;
    }
 
-   public static function get($role)
+   public static function get($id)
    {
-       return $_SESSION[$role] ?? null;
+       return $_SESSION[$id] ?? null;
    }
 
-   public static function clear($role)
+   public static function clear($id)
    {
-       unset($_SESSION[$role]);
+       unset($_SESSION[$id]);
    }
 }

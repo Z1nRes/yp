@@ -13,6 +13,12 @@
                 <label for="floatingInput">Название</label>
             </div>
 
+            <select class="form-select" name="id_view">
+                <option selected>Вид</option>
+                <option value="1">Корпус-1В</option>
+                <option value="2">Корпус-2В</option>
+            </select>
+
             <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Добавить</button>
         </form>
     </div>
