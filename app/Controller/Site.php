@@ -7,6 +7,7 @@ use src\View;
 use src\Request;
 use Model\User;
 use src\Auth\Auth;
+use Model\Room;
 
 class Site
 {
@@ -50,4 +51,9 @@ class Site
         app()->route->redirect('/hello');
     }
 
+    public function room(): string
+    {
+        $rooms = Room::all();
+        return (new View())->render('site.room', ['rooms' => $rooms]); 
+    }
 }
