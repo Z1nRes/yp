@@ -27,5 +27,8 @@ if ($_SESSION['role'] === 2):
       </form>
       
    </div>
-
+<?php 
+   else:
+      ?>
+      <h5>У вас недостаточно прав!</р>
 <?php endif; ?>
