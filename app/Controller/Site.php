@@ -8,6 +8,7 @@ use src\Request;
 use Model\User;
 use src\Auth\Auth;
 use Model\Room;
+use Model\Division;
 
 class Site
 {
@@ -55,5 +56,11 @@ class Site
     {
         $rooms = Room::all();
         return (new View())->render('site.room', ['rooms' => $rooms]); 
+    }
+
+    public function division(): string
+    {
+        $divisions = Division::all();
+        return (new View())->render('site.division', ['divisions' => $divisions]); 
     }
 }
