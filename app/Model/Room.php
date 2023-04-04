@@ -19,4 +19,12 @@ class Room extends Model
    {
        return $this->belongsTo(Rooms_view::class, 'id_view', 'id_view');
    }
+
+    protected $fillable = [
+        'number',
+        'id_view',
+        'square',
+        'places',
+        'id_division'
+    ];
 }

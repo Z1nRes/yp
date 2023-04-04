@@ -54,15 +54,17 @@ class Site
         app()->route->redirect('/hello');
     }
 
-    public function room(): string
+    public function room(Request $request): string
     {
         $rooms = Room::all();
+        if ($request->method === 'POST' && Room::create($request->all())) {
+            
+        }
         return (new View())->render('site.room', ['rooms' => $rooms]); 
     }
 
     public function division(Request $request): string
     {
-       // var_dump($request); die();
         $divisions = Division::all();
         if ($request->method === 'POST' && Division::create($request->all())) {
             
