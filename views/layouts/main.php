@@ -27,7 +27,13 @@
                 else:
                     ?>
                     <li class="nav-item"><a href="<?= app()->route->getUrl('/logout') ?>" class="nav-link link-dark px-2">Выход</a></li>
-                    <li class="nav-item"><a href="<?= app()->route->getUrl('/signup') ?>" class="nav-link link-dark px-2">Регистрация</a></li>
+                        <?php
+                            if ($_SESSION['role'] === 2) :
+                        ?>
+                            <li class="nav-item"><a href="<?= app()->route->getUrl('/signup') ?>" class="nav-link link-dark px-2">Регистрация</a></li>
+                        <?php
+                            endif;
+                        ?>                
                 <?php
                 endif;
             ?>
