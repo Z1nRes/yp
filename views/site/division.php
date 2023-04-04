@@ -24,13 +24,18 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Название подразделения</th>
+                    <th scope="col">Вид</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                </tr>
+                <?php
+                    foreach ($divisions as $division) {
+                        echo '<tr>' . 
+                            '<th scope="row">' . $division->id_division . '</th>' .
+                            '<td>' . $division->name . '</td>' .
+                            '<td scope="row">' . $division->divisions_view->name . '</td>';
+                    }
+                ?>
             </tbody>
         </table>
     </div>
