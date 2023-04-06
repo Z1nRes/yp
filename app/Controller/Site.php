@@ -10,6 +10,8 @@ use src\Auth\Auth;
 use Model\Room;
 use Model\Division;
 
+use src\Validator\Validator;
+
 class Site
 {
     public function index(Request $request): string
@@ -28,10 +30,25 @@ class Site
 
    public function signup(Request $request): string
     {
-    if ($request->method === 'POST' && User::create($request->all())) {
-        app()->route->redirect('/hello');
-    }
-    return new View('site.signup');
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'role' => ['required'],
+                'login' => ['required', 'unique:users,login'],
+                'password' => ['required']
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+
+            if ($validator->fails()) {
+                return new View('site.signup', ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
+            }
+
+            if (USer::create($request->all())) {
+                app()->route->redirect('/hello');
+            }
+        }
+        return new View('site.signup');
     }
 
     public function login(Request $request): string
