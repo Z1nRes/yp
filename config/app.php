@@ -12,7 +12,8 @@ return [
         'required' => \Validators\RequireValidator::class,
         'unique' => \Validators\UniqueValidator::class,
         'select' => \Validators\SelectValidator::class,
-        'passwordLength' => \Validators\PasswordLengthValidator::class
+        'passwordLength' => \Validators\PasswordLengthValidator::class,
+        'image' => \Validators\ImageValidator::class,
    ],
    'routeAppMiddleware' => [
         'csrf' => \Middlewares\CSRFMiddleware::class,

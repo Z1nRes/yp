@@ -10,3 +10,4 @@ Route::add('GET', '/logout', [Controller\Authorization::class, 'logout'])->middl
 Route::add(['GET', 'POST'], '/places', [Controller\Admin::class, 'room'])->middleware('auth');
 Route::add(['GET', 'POST'], '/divisions', [Controller\Admin::class, 'division'])->middleware('auth');
 Route::add(['POST'], '/addRoom', [Controller\Admin::class, 'addRoom'])->middleware('auth');
+Route::add(['GET', 'POST'], '/profile', [Controller\Authorization::class, 'profile'])->middleware('auth');

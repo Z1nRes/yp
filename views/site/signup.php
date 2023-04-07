@@ -4,7 +4,7 @@ if ($_SESSION['role'] === 2):
    ?>
 
    <div class="text-center d-flex justify-content-center align-items-center" style="height: 80vh">
-      <form method="post" style="min-width: 250px;">
+      <form method="post" style="min-width: 250px;" enctype="multipart/form-data">
          <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
          <div id="errors" class="text-danger">
                <?= $message ?? ''; ?>
@@ -30,7 +30,11 @@ if ($_SESSION['role'] === 2):
             <label for="floatingPassword">Пароль</label>
          </div>
 
-         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Войти</button>
+         <div class="form-floating mt-2">
+            <input type="file" class="form-control" name="photo">
+         </div>
+
+         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Создать</button>
       </form>
       
    </div>

@@ -26,6 +26,7 @@
                 <?php
                 else:
                     ?>
+                    <li class="nav-item"><a href="<?= app()->route->getUrl('/profile') ?>" class="nav-link link-dark px-2">Профиль</a></li>
                     <li class="nav-item"><a href="<?= app()->route->getUrl('/logout') ?>" class="nav-link link-dark px-2">Выход</a></li>
                         <?php
                             if ($_SESSION['role'] === 2) :

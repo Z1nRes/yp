@@ -45,4 +45,13 @@ class Authorization
         Auth::logout();
         app()->route->redirect('/hello');
     }
+
+    public function profile(Request $request)
+    {
+        $user = User::where('id', '=', $_SESSION['id'])->first();
+        // var_dump($user['photo']); die();
+        if ($request->method === 'GET') {
+            return (new View())->render('site.profile', ['user' => $user]); 
+        }
+    }
 }

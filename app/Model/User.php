@@ -12,6 +12,7 @@ class User extends Model implements IdentityInterface
 
    public $timestamps = false;
    protected $fillable = [
+        'photo',
        'id_role',
        'login',
        'password'
@@ -43,4 +44,11 @@ class User extends Model implements IdentityInterface
        return self::where(['login' => $credentials['login'],
            'password' => md5($credentials['password'])])->first();
    }
+
+   public function photo($img)
+    {
+        $photo = time() . $img['name'] ;
+        $this->photo = $photo;
+        move_uploaded_file($img['tmp_name'], __DIR__ . '/../../public/Images/' . $photo);
+    }
 }
