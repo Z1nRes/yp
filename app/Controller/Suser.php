@@ -37,6 +37,7 @@ class Suser
                 $user->photo($_FILES['photo']);
                 $user->save();
                 app()->route->redirect('/profile');
+                return false;
             }
         }
         return new View('site.signup', ['roles' => $roles]);
