@@ -9,6 +9,8 @@ use Model\User;
 use src\Auth\Auth;
 use Model\Room;
 use Model\Division;
+use Model\Role;
+use Model\Rooms_view;
 
 use src\Validator\Validator;
 
@@ -16,8 +18,6 @@ class Site
 {
     public function index(Request $request): string
     {
-        // $user = User::where('id', '=' , $_SESSION['id'])->get();
-
         $posts = Post::where('id', $request->id)->get();
         return (new View())->render('site.post', ['posts' => $posts]);
     }
@@ -30,10 +30,11 @@ class Site
 
    public function signup(Request $request): string
     {
+        $roles = Role::all();
         if ($request->method === 'POST') {
             
             $validator = new Validator($request->all(), [
-                'role' => ['select'],
+                'id_role' => ['select'],
                 'login' => ['required', 'unique:users,login'],
                 'password' => ['required', 'passwordLength']
             ], [
@@ -44,14 +45,14 @@ class Site
             ]);
 
             if ($validator->fails()) {
-                return new View('site.signup', ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
+                return new View('site.signup', ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE), 'roles' => $roles]);
             }
 
             if (User::create($request->all())) {
                 app()->route->redirect('/hello');
             }
         }
-        return new View('site.signup');
+        return new View('site.signup', ['roles' => $roles]);
     }
 
     public function login(Request $request): string
@@ -91,8 +92,10 @@ class Site
     public function room(Request $request): string
     {
         $rooms = Room::all();
+        $divisions = Division::all();
+        $roomsView = Rooms_view::all();
         if ($request->method === 'GET') {
-            return (new View())->render('site.room', ['rooms' => $rooms]); 
+            return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]); 
         }
         //Подсчет мест
         if ($request->method === 'POST' && $request->get('type_form') == 'countPlaces') {
@@ -103,7 +106,7 @@ class Site
                 foreach ($roomsCountPlaces as $place) {
                     $summ += $place->places;
                 }
-                return (new View())->render('site.room', ['rooms' => $rooms, 'summ' => $summ]); 
+                return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]); 
             }
             // остальные
             if ($request->get('id_division') != 0) {
@@ -114,7 +117,7 @@ class Site
                     $summ += $place->places;
                 }
 
-                return (new View())->render('site.room', ['rooms' => $rooms, 'summ' => $summ]);
+                return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]);
             }
         }
         //площадь
@@ -126,7 +129,7 @@ class Site
                 foreach ($roomsSquare as $place) {
                     $square += $place->square;
                 }
-                return (new View())->render('site.room', ['rooms' => $rooms, 'square' => $square]); 
+                return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]); 
             }
             // остальные
             if ($request->get('id_view') != 0) {
@@ -137,7 +140,7 @@ class Site
                     $square += $place->square;
                 }
 
-                return (new View())->render('site.room', ['rooms' => $rooms, 'square' => $square]);
+                return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]);
             }
         }
         //Фильтр
@@ -147,7 +150,7 @@ class Site
             }
             if ($request->get('id_division') != 0) {
                 $rooms = Room::where('id_division', '=', $request->get('id_division'))->get();
-                return (new View())->render('site.room', ['rooms' => $rooms]); 
+                return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]); 
             }
         }
     }

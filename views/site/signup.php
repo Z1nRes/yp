@@ -1,5 +1,6 @@
 <?php
 if ($_SESSION['role'] === 2):
+   
    ?>
 
    <div class="text-center d-flex justify-content-center align-items-center" style="height: 80vh">
@@ -10,10 +11,15 @@ if ($_SESSION['role'] === 2):
          </div>
          <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
 
-         <select class="form-select" name="role">
+         <select class="form-select" name="id_role">
             <option value="0" selected>Роль</option>
-            <option value="1">Админ</option>
-            <option value="2">Суперпользователь</option>
+            <?php
+            
+               foreach ($roles as $role) {
+                  echo '<option value="' . $role->id_role . '">' . $role->name . '</option>';
+               }
+
+            ?>
          </select>
          <div class="form-floating mt-2">
             <input type="text" class="form-control" id="floatingInput" placeholder="Логин" name="login">

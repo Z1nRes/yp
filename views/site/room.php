@@ -20,8 +20,11 @@
                     <input name="type_form" type="hidden" value="filter"/>
                     <select class="form-select form-select-sm" style="height: 38px" aria-label=".form-select-sm" name="id_division">
                         <option value="0" selected>Выбор по подразделению</option>
-                        <option value="1">Корпус-1</option>
-                        <option value="2">Корпус-2</option>
+                        <?php
+                            foreach ($divisions as $division) {
+                                echo '<option value="' . $division->id_division . '">' . $division->name . '</option>';
+                            }
+                        ?>
                     </select>
                     <button class="btn btn-primary ms-2" type="submit">Фильтр</button>
                 </form>
@@ -83,8 +86,11 @@
                     </div>
                     <select class="form-select  mt-2" name="id_view">
                         <option value="0" selected>Вид</option>
-                        <option value="1">Аудитория</option>
-                        <option value="2">Кабинет</option>
+                        <?php
+                            foreach ($roomsView as $view) {
+                                echo '<option value="' . $view->id_view . '">' . $view->name . '</option>';
+                            }
+                        ?>
                     </select>
                     <div class="form-floating mt-2">
                         <input type="number" class="form-control" id="floatingInput" placeholder="Площадь" name="square">
@@ -96,8 +102,11 @@
                     </div>
                     <select class="form-select mt-2" name="id_division">
                         <option value="0" selected>Подразделение</option>
-                        <option value="1">Корпус-1</option>
-                        <option value="2">Корпус-2</option>
+                        <?php
+                            foreach ($divisions as $division) {
+                                echo '<option value="' . $division->id_division . '">' . $division->name . '</option>';
+                            }
+                        ?>
                     </select>
                     <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Добавить</button>
                 </form>
@@ -124,14 +133,15 @@
                     <input name="type_form" type="hidden" value="countPlaces"/>
 
                     <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="id_division" id="btnradio1" autocomplete="off" checked value="0">
-                        <label class="btn btn-outline-primary" for="btnradio1">Все</label>
+                        <input type="radio" class="btn-check" name="id_division" id="btnradio0" autocomplete="off" checked value="0">
+                        <label class="btn btn-outline-primary" for="btnradio0">Все</label>
 
-                        <input type="radio" class="btn-check" name="id_division" id="btnradio2" autocomplete="off" value="1">
-                        <label class="btn btn-outline-primary" for="btnradio2">Корпус-1</label>
-
-                        <input type="radio" class="btn-check" name="id_division" id="btnradio3" autocomplete="off" value="2">
-                        <label class="btn btn-outline-primary" for="btnradio3">Корпус-2</label>
+                        <?php
+                            foreach ($divisions as $division) {
+                                echo '<input type="radio" class="btn-check" name="id_division" id="btnradio'. $division->id_division . '" autocomplete="off" value="' . $division->id_division . '">' .
+                                '<label class="btn btn-outline-primary" for="btnradio'. $division->id_division . '">'. $division->name . '</label>';
+                            }
+                        ?>
                     </div>
 
 
@@ -161,14 +171,15 @@
                     <legend>Вид помещения:</legend>
                     <input name="type_form" type="hidden" value="square"/>
                     <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="id_view" id="btnradio11" autocomplete="off" checked name="id_view" value="0">
-                        <label class="btn btn-outline-primary" for="btnradio11">Все</label>
+                        <input type="radio" class="btn-check" name="id_view" id="btnradio00" autocomplete="off" checked name="id_view" value="0">
+                        <label class="btn btn-outline-primary" for="btnradio00">Все</label>
 
-                        <input type="radio" class="btn-check" name="id_view" id="btnradio22" autocomplete="off" name="id_view" value="1">
-                        <label class="btn btn-outline-primary" for="btnradio22">Аудитория</label>
-
-                        <input type="radio" class="btn-check" name="id_view" id="btnradio33" autocomplete="off" name="id_view" value="2">
-                        <label class="btn btn-outline-primary" for="btnradio33">Кабинет</label>
+                        <?php
+                            foreach ($roomsView as $view) {
+                                echo '<input type="radio" class="btn-check" name="id_view" id="btnradio0'. $view->id_view . '" autocomplete="off" value="' . $view->id_view . '">' .
+                                '<label class="btn btn-outline-primary" for="btnradio0'. $view->id_view . '">'. $view->name . '</label>';
+                            }
+                        ?>
                     </div>
 
                     <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Подсчёт</button>
