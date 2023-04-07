@@ -9,7 +9,7 @@ class Room extends Model
 {
    use HasFactory;
    public $timestamps = false;
-
+   protected $primaryKey = 'id';
 
    public function division()
    {

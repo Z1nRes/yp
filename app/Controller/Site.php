@@ -97,6 +97,11 @@ class Site
         if ($request->method === 'GET') {
             return (new View())->render('site.room', ['rooms' => $rooms, 'divisions' => $divisions, 'roomsView' => $roomsView, 'summ' => $summ, 'square' => $square]); 
         }
+        //удаление
+        if ($request->method === 'POST' && $request->get('type_form') == 'delete') {
+            Room::where('id', '=', $request->get('delete_id'))->delete();
+            app()->route->redirect('/places');
+        }
         //Подсчет мест
         if ($request->method === 'POST' && $request->get('type_form') == 'countPlaces') {
             // все

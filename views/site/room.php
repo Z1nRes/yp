@@ -46,7 +46,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <?php
                     foreach ($rooms as $room) {
                         echo '<tr>' . 
@@ -55,7 +54,12 @@
                             '<td scope="row">' . $room->rooms_view->name . '</td>' .
                             '<td>' . $room->square . '</td>' .
                             '<td scope="row">' . $room->places . '</td>' .
-                            '<td>' . $room->division->name . '</td>' .
+                            '<td class="d-flex flex-direction-row">' . $room->division->name . '<form method="post">
+                            <input name="csrf_token" type="hidden" value="' .  app()->auth::generateCSRF() . '"/>
+                            <input name="type_form" type="hidden" value="delete">
+                            <input name="delete_id" type="hidden" value="' . $room->id . '">
+                            <button class="btn btn-primary ms-2" type="submit">X</button>
+                            </form>' . '</td>' .
                             '</tr>';
                     }
                 ?>
