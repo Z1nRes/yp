@@ -6,6 +6,7 @@ use src\View;
 use src\Request;
 use Model\Room;
 use Model\Division;
+use Model\Divisions_view;
 use Model\Rooms_view;
 
 use src\Validator\Validator;
@@ -117,6 +118,7 @@ class Admin
     public function division(Request $request): string
     {
         $divisions = Division::all();
+        $divView = Divisions_view::all();
         if ($request->method === 'POST' && $request->get('type_form') == addRoom) {
             $validator = new Validator($request->all(), [
                 'name' => ['required'],
@@ -127,7 +129,7 @@ class Admin
             ]);
 
             if ($validator->fails()) {
-                return new View('site.division', ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE), 'divisions' => $divisions]);
+                return new View('site.division', ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE), 'divisions' => $divisions, 'views' => $divView]);
             }
 
             if (Division::create($request->all())) {
@@ -135,7 +137,7 @@ class Admin
             }
         }
         if ($request->method === 'GET') {
-            return (new View())->render('site.division', ['divisions' => $divisions]); 
+            return (new View())->render('site.division', ['divisions' => $divisions, 'views' => $divView]); 
         }
     }
 }

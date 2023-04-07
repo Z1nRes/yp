@@ -16,14 +16,16 @@
 
             <select class="form-select" name="id_view">
                 <option value="0" selected>Вид</option>
-                <option value="1">Корпус-1В</option>
-                <option value="2">Корпус-2В</option>
+                <?php
+                    foreach ($views as $view) {
+                        echo '<option value="' . $view->id_view . '">' . $view->name . '</option>';
+                    }
+                ?>
             </select>
 
             <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Добавить</button>
         </form>
     </div>
-
     
     <div class="p-5">
         <table class="table">
