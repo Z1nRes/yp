@@ -11,7 +11,7 @@ if ($_SESSION['role'] === 2):
          <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
 
          <select class="form-select" name="role">
-            <option selected>Роль</option>
+            <option value="0" selected>Роль</option>
             <option value="1">Админ</option>
             <option value="2">Суперпользователь</option>
          </select>

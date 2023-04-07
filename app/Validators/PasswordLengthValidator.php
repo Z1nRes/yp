@@ -11,7 +11,6 @@ class PasswordLengthValidator extends AbstractValidator
 
    public function rule(): bool
    {
-        echo 'Длина пароля' . strlen($this->value);
        return strlen($this->value) >= 6;
    }
 }

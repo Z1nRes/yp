@@ -15,11 +15,16 @@
                 Подсчёт площади
             </button>
             <div class="d-inline-block">
-                <select class="form-select form-select-sm" style="height: 38px" aria-label=".form-select-sm">
-                    <option selected>Выбор по подразделению</option>
-                    <option value="1">Корпус-1</option>
-                    <option value="2">Корпус-2</option>
-                </select>
+                <form method='post' class="d-flex flex-direction-row align-items-center">
+                    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+                    <input name="type_form" type="hidden" value="filter"/>
+                    <select class="form-select form-select-sm" style="height: 38px" aria-label=".form-select-sm" name="id_division">
+                        <option value="0" selected>Выбор по подразделению</option>
+                        <option value="1">Корпус-1</option>
+                        <option value="2">Корпус-2</option>
+                    </select>
+                    <button class="btn btn-primary ms-2" type="submit">Фильтр</button>
+                </form>
             </div>
         </div>
     </div>
@@ -67,7 +72,8 @@
             </div>
             <div class="modal-body">
                 
-                <form method="post" style="min-width: 250px;">
+                <form action="/yp/addRoom"  method="post" style="min-width: 250px;">
+                    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
                     <div id="errors" class="text-danger">
                             <?= $message ?? ''; ?>
                     </div>
@@ -76,7 +82,7 @@
                         <label for="floatingInput">Номер</label>
                     </div>
                     <select class="form-select  mt-2" name="id_view">
-                        <option selected>Вид</option>
+                        <option value="0" selected>Вид</option>
                         <option value="1">Аудитория</option>
                         <option value="2">Кабинет</option>
                     </select>
@@ -89,7 +95,7 @@
                         <label for="floatingPassword">Количество мест</label>
                     </div>
                     <select class="form-select mt-2" name="id_division">
-                        <option selected>Подразделение</option>
+                        <option value="0" selected>Подразделение</option>
                         <option value="1">Корпус-1</option>
                         <option value="2">Корпус-2</option>
                     </select>
@@ -110,22 +116,26 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <h5>Количество - 123</h5>
+                    <h5>Количество - <?php echo $summ; ?></h5>
                 </div>
                 <form method="post" style="min-width: 250px;">
+                    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
                     <legend>Подразделения:</legend>
-                    <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck1">Все</label>
+                    <input name="type_form" type="hidden" value="countPlaces"/>
 
-                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck2">Корпус-1</label>
+                    <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="id_division" id="btnradio1" autocomplete="off" checked value="0">
+                        <label class="btn btn-outline-primary" for="btnradio1">Все</label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck3">Корпус-2</label>
+                        <input type="radio" class="btn-check" name="id_division" id="btnradio2" autocomplete="off" value="1">
+                        <label class="btn btn-outline-primary" for="btnradio2">Корпус-1</label>
+
+                        <input type="radio" class="btn-check" name="id_division" id="btnradio3" autocomplete="off" value="2">
+                        <label class="btn btn-outline-primary" for="btnradio3">Корпус-2</label>
                     </div>
 
-                    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Войти</button>
+
+                    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Подсчет</button>
                 </form>
 
             </div>
@@ -143,23 +153,25 @@
             <div class="modal-body">
                 
                 <div>
-                    <h5>Площадь - 50 м^2</h5>
+                    <h5>Площадь - <?php echo $square; ?></h5>
                 </div>
 
                 <form method="post" style="min-width: 250px;">
+                    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
                     <legend>Вид помещения:</legend>
-                    <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
-                        <input type="checkbox" class="btn-check" id="btncheck11" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck11">Все</label>
+                    <input name="type_form" type="hidden" value="square"/>
+                    <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="id_view" id="btnradio11" autocomplete="off" checked name="id_view" value="0">
+                        <label class="btn btn-outline-primary" for="btnradio11">Все</label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck22" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck22">Аудитория</label>
+                        <input type="radio" class="btn-check" name="id_view" id="btnradio22" autocomplete="off" name="id_view" value="1">
+                        <label class="btn btn-outline-primary" for="btnradio22">Аудитория</label>
 
-                        <input type="checkbox" class="btn-check" id="btncheck33" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck33">Кабинет</label>
+                        <input type="radio" class="btn-check" name="id_view" id="btnradio33" autocomplete="off" name="id_view" value="2">
+                        <label class="btn btn-outline-primary" for="btnradio33">Кабинет</label>
                     </div>
 
-                    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Войти</button>
+                    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Подсчёт</button>
                 </form>
 
             </div>
