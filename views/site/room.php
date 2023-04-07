@@ -2,10 +2,11 @@
 
 
     <div class="pt-5 ps-5 pe-5 d-flex justify-content-between" >
-        <div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
+        <div class="d-flex flex-direction-row align-items-center">
+            <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#postModal" style=" height: 40px;">
                 Добавить запись
             </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal" style="width: 100px; height: 40px;">Искать</button>
         </div>
         <div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#countPLacesModal">
@@ -68,6 +69,33 @@
         </table>
     </div>
     
+</div>
+
+
+<div class="modal fade show" id="searchModal" tabindex="-1" aria-labelledby="searchModalTitle" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalTitle">Поиск</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form  method="post" style="min-width: 250px;">
+                    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+                    <input name="type_form" type="hidden" value="search"/>
+                    <div id="errors" class="text-danger">
+                            <?= $message ?? ''; ?>
+                    </div>
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="Номер" name="number">
+                        <label for="floatingInput">Номер</label>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Найти</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade show" id="postModal" tabindex="-1" aria-labelledby="postModalTitle" aria-modal="true">
